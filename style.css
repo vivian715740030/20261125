@@ -1,0 +1,38 @@
+* { box-sizing: border-box; } /* 讓尺寸計算包含邊框與內距 */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; } /* 讓場景鋪滿視窗並隱藏捲軸 */
+body { background: #d7eff2; color: #233d47; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; } /* 設定水色底與繁體中文介面字體 */
+#scene-root { position: fixed; inset: 0; z-index: 0; } /* 將 three.js 畫布固定鋪滿視窗 */
+#scene-root canvas { display: block; width: 100%; height: 100%; } /* 確保 WebGL 畫布沒有行內空白 */
+#ui-root { position: fixed; inset: 0; z-index: 2; pointer-events: none; } /* 將 p5 介面放在場景上方且不阻擋操作 */
+#ui-root canvas { position: absolute; inset: 0; z-index: 1; display: block; pointer-events: auto; touch-action: none; } /* 讓 p5 畫布接收地面點擊並停用觸控時的瀏覽器手勢 */
+.topbar { position: absolute; top: 26px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: flex-start; } /* 排列標題與右側提示 */
+.brand { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border: 1px solid rgba(255,255,255,.72); border-radius: 18px; background: rgba(248,253,251,.76); box-shadow: 0 8px 26px rgba(48,91,101,.09); backdrop-filter: blur(12px); } /* 建立輕透的場景標題卡 */
+.brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 12px; background: #e6b94f; color: #fff; font-size: 19px; } /* 繪製金黃色品牌圖示 */
+.brand-copy { display: grid; gap: 2px; } /* 垂直排列主標與副標 */
+.brand-title { color: #24434d; font-size: 15px; font-weight: 750; letter-spacing: .08em; } /* 設定標題的字重與字距 */
+.brand-subtitle { color: #779098; font-size: 10px; letter-spacing: .15em; } /* 設定英文小標 */
+.hint { margin-top: 7px; padding: 10px 15px; border-radius: 999px; background: rgba(248,253,251,.72); color: #62818a; font-size: 12px; letter-spacing: .04em; backdrop-filter: blur(10px); } /* 顯示右上方操作提示 */
+.control-card { position: absolute; z-index: 3; right: 30px; bottom: 28px; width: 260px; padding: 17px; border: 1px solid rgba(255,255,255,.78); border-radius: 20px; background: rgba(248,253,251,.84); box-shadow: 0 12px 34px rgba(48,91,101,.12); backdrop-filter: blur(14px); pointer-events: auto; } /* 建立右下角互動控制卡並置於場景畫布上方 */
+.character-card { position: absolute; z-index: 4; top: 88px; right: 30px; width: 260px; padding: 16px 17px; border: 1px solid rgba(255,255,255,.82); border-radius: 20px; background: rgba(248,253,251,.88); box-shadow: 0 12px 34px rgba(48,91,101,.12); backdrop-filter: blur(14px); pointer-events: auto; } /* 建立置於畫布上層且可互動的角色造型自訂卡 */
+.character-card .card-heading { margin-bottom: 8px; } /* 縮小角色面板標題下方留白 */
+.character-label { display: flex; align-items: center; justify-content: space-between; min-height: 34px; margin-top: 5px; color: #66828a; font-size: 11px; } /* 排列服裝欄位標題與輸入控制 */
+.character-color { width: 43px; height: 27px; padding: 2px; border: 1px solid #dce9e7; border-radius: 8px; background: #fff; cursor: pointer; } /* 設定服裝及配件顏色挑選器外觀 */
+.character-name-input { width: 128px; height: 30px; padding: 0 8px; border: 1px solid #dce9e7; border-radius: 9px; outline: none; background: #fff; color: #52717a; font: inherit; font-size: 11px; } /* 設定角色名稱輸入欄樣式 */
+.character-name-input:focus { border-color: #e4c36c; box-shadow: 0 0 0 2px rgba(228,195,108,.18); } /* 顯示名稱輸入欄的聚焦狀態 */
+.character-select { width: 128px; height: 30px; padding: 0 8px; border: 1px solid #dce9e7; border-radius: 9px; background: #fff; color: #52717a; font: inherit; font-size: 11px; cursor: pointer; } /* 設定配件類型選擇器樣式 */
+.character-toggle { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #52717a; font-size: 11px; cursor: pointer; } /* 排列書包與寵物切換選項 */
+.character-toggle input { width: 15px; height: 15px; margin: 0; accent-color: #d7ad45; cursor: pointer; } /* 設定配件勾選框外觀 */
+.card-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; } /* 對齊控制卡標題與狀態 */
+.card-title { color: #2f515b; font-size: 13px; font-weight: 750; letter-spacing: .08em; } /* 設定控制卡標題 */
+.live-pill { padding: 4px 8px; border-radius: 999px; background: #e7f3e8; color: #648c69; font-size: 10px; } /* 顯示場景狀態標籤 */
+.control-label { display: flex; justify-content: space-between; margin: 14px 0 7px; color: #66828a; font-size: 11px; } /* 排列縮放說明與百分比 */
+.zoom-controls { display: flex; align-items: center; gap: 8px; } /* 並排縮小按鈕、滑桿與放大按鈕 */
+.zoom-slider { flex: 1; min-width: 0; width: 100%; height: 4px; accent-color: #e3b24a; cursor: pointer; } /* 設定縮放滑桿樣式 */
+.zoom-step-button { display: grid; flex: 0 0 28px; width: 28px; height: 28px; padding: 0; place-items: center; border: 1px solid #dce9e7; border-radius: 9px; background: #fff; color: #66828a; font: inherit; font-size: 17px; line-height: 1; cursor: pointer; transition: background .2s, border-color .2s, transform .2s; } /* 設定縮放加減按鈕外觀 */
+.zoom-step-button:hover { transform: translateY(-1px); border-color: #e4c36c; background: #fff6dc; } /* 提供縮放按鈕懸停回饋 */
+.button-row { display: flex; gap: 8px; margin-top: 13px; } /* 並排燈光與重設按鈕 */
+.ui-button { flex: 1; min-height: 36px; border: 1px solid #dce9e7; border-radius: 11px; background: #fff; color: #52717a; font: inherit; font-size: 11px; cursor: pointer; transition: background .2s, transform .2s, border-color .2s; } /* 設定面板按鈕 */
+.ui-button:hover { transform: translateY(-1px); border-color: #e4c36c; background: #fffaf0; } /* 提供按鈕懸停回饋 */
+.ui-button.is-active { border-color: #e3bd5c; background: #fff6dc; color: #927124; } /* 標示已啟用的燈光按鈕 */
+.footer-note { position: absolute; left: 32px; bottom: 29px; color: rgba(54,91,101,.68); font-size: 11px; letter-spacing: .08em; } /* 顯示左下角場景註記 */
+@media (max-width: 600px) { .topbar { top: 14px; left: 14px; right: 14px; } /* 縮小手機上的頂部留白 */ .hint { display: none; } /* 手機畫面隱藏操作提示膠囊 */ .control-card { right: 14px; bottom: 14px; width: 230px; } /* 將控制卡靠近手機邊緣 */ .character-card { top: 76px; right: 14px; width: 220px; padding: 12px 14px; } /* 縮小手機版角色面板並靠近螢幕邊緣 */ .footer-note { left: 16px; bottom: 21px; max-width: 110px; font-size: 9px; } /* 縮小手機版場景註記 */ } /* 結束手機版版面設定 */

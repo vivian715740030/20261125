@@ -1,0 +1,18 @@
+<!doctype html> <!-- 指定 HTML5 文件格式 -->
+<html lang="zh-Hant"> <!-- 設定頁面語系為繁體中文 -->
+<head> <!-- 開始文件中繼資料區 -->
+  <meta charset="utf-8"> <!-- 使用 UTF-8 編碼支援繁體中文 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 讓畫面適應不同裝置寬度 -->
+  <meta name="theme-color" content="#d8eff3"> <!-- 設定瀏覽器介面主題色 -->
+  <title>浮島公園 · 水上漫遊</title> <!-- 設定網頁標題 -->
+  <link rel="stylesheet" href="style.css"> <!-- 載入場景與介面樣式 -->
+  <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script><!-- 透過 importmap 載入指定版本的 Three.js -->
+  <script src="libraries/p5.min.js"></script> <!-- 載入 p5.js 作為介面與互動工具 -->
+  <script src="sketch.js"></script> <!-- 載入 p5.js 操作面板程式 -->
+</head> <!-- 結束文件中繼資料區 -->
+<body> <!-- 開始頁面內容 -->
+  <div id="scene-root" aria-label="淡藍水面上的浮島公園 3D 場景"></div> <!-- 放置 Three.js 3D 畫布 -->
+  <div id="ui-root"></div> <!-- 放置由 p5.js 建立的操作介面 -->
+  <script type="module" src="scene.js"></script> <!-- 載入 Three.js 場景模組 -->
+</body> <!-- 結束頁面內容 -->
+</html> <!-- 結束 HTML 文件 -->
